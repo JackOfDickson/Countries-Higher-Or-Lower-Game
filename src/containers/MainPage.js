@@ -17,7 +17,7 @@ const MainPage = () => {
     }, [])
 
     const fetchCountries = function(){
-        fetch('https://restcountries.com/v3.1/all')
+        fetch("./data/countries.json")
         .then(res => res.json())
         .then(countries => setCountries(countries))
     }
