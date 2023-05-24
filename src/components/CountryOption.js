@@ -1,6 +1,7 @@
-const CountryOption = ({country, showPopulation}) => {
+const CountryOption = ({country, showPopulation, guess}) => {
 
-
+    const handleClickHigher = () => guess("higher")
+    const handleClickLower = () => guess("lower")
 
     
     return (
@@ -8,11 +9,11 @@ const CountryOption = ({country, showPopulation}) => {
             <p>{country.name.common}</p>
 
             {showPopulation? 
-            <p> country.population </p> 
+            <p> {country.population} </p> 
             : //or 
             <div>
-                <button> Higher </button>
-                <button> Lower </button>
+                <button onClick={handleClickHigher}> Higher </button>
+                <button onClick={handleClickLower}> Lower </button>
             </div>}
         </>
 

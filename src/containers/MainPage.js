@@ -4,7 +4,6 @@ import CountryOption from "../components/CountryOption"
 
 const MainPage = () => {
 
-    console.log(process.env)
     
     const [countries, setCountries] = useState([])
     const [countriesQuestionPool, setCountriesQuestionPool] = useState([])
@@ -50,14 +49,15 @@ const MainPage = () => {
     //function that takes in a string "higher" or "lower" then compares it to the other country to see if it's higher or lower
     const guessHigherOrLower = (option) => {
         setRevealCountry2Population(true)
-        if ( (option2Country.population > option1Country.population && option === "higher") || (option2Country.population < option1Country.population && option === "higher") ) {
+        console.log("Option was", option)
+        if ( (option2Country.population > option1Country.population && option === "higher") || (option2Country.population < option1Country.population && option === "lower") ) {
             let newScore = userScore + 1
             setUserScore(newScore)
+            console.log("Correct!")
         }
     }
 
 
-    console.log(option1Country)
 
     return (
         <>
@@ -66,7 +66,7 @@ const MainPage = () => {
             <button onClick={startGame}>Start Game!</button>
 
             { option1Country? <CountryOption country={option1Country} showPopulation={true}/>: null} 
-            { option2Country? <CountryOption country={option2Country} showPopulation={revealOption2CountryPopulation}/>: null}
+            { option2Country? <CountryOption country={option2Country} showPopulation={revealOption2CountryPopulation} guess={guessHigherOrLower} />: null}
         </>
     )
 
