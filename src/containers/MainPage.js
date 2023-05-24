@@ -4,6 +4,8 @@ import CountryOption from "../components/CountryOption"
 
 const MainPage = () => {
 
+    console.log(process.env)
+    
     const [countries, setCountries] = useState([])
     const [countriesQuestionPool, setCountriesQuestionPool] = useState([])
     const [option1Country, setOption1Country] = useState(null)
@@ -17,7 +19,7 @@ const MainPage = () => {
     }, [])
 
     const fetchCountries = function(){
-        fetch("./data/countries.json")
+        fetch("/data/countries.json")
         .then(res => res.json())
         .then(countries => setCountries(countries))
     }
