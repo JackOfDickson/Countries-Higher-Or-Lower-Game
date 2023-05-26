@@ -6,12 +6,12 @@ import Country from "../shared/types/country"
 const MainPage = () => {
 
     
-    const [countries, setCountries] = useState([])
+    const [countries, setCountries] = useState<Array<Country>>([])
     const [countriesQuestionPool, setCountriesQuestionPool] = useState<Array<Country>>([])
     const [option1Country, setOption1Country] = useState<Country | null>(null)
     const [option2Country, setOption2Country] = useState<Country | null>(null)
-    const [revealOption2CountryPopulation, setRevealCountry2Population] = useState(false)
-    const [userScore, setUserScore] = useState(0)
+    const [revealOption2CountryPopulation, setRevealCountry2Population] = useState<boolean>(false)
+    const [userScore, setUserScore] = useState<number>(0)
 
 
     useEffect(() => {
@@ -60,12 +60,6 @@ const MainPage = () => {
             console.log("Correct!")
         }
     }
-
-    type CountryOptionProps = {
-        country : object,
-        showPopulation : boolean
-    }
-
 
 
     return (
