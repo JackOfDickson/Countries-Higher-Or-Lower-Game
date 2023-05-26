@@ -12,6 +12,7 @@ const MainPage = () => {
     const [option2Country, setOption2Country] = useState<Country | null>(null)
     const [revealOption2CountryPopulation, setRevealCountry2Population] = useState<boolean>(false)
     const [userScore, setUserScore] = useState<number>(0)
+    const [gameStart, setGameStart] = useState<boolean>(false)
 
 
     useEffect(() => {
@@ -26,7 +27,7 @@ const MainPage = () => {
 
     //function startGame which begins the game and generates two countries to be in option 1 and option 2
     const startGame = () => {
-        const copyOfCountries = countries
+        const copyOfCountries = [...countries]
 
         const generatedCountry1 = getRandomCountryAndRemoveFromCountries(copyOfCountries)
         const generatedCountry2 = getRandomCountryAndRemoveFromCountries(copyOfCountries)
@@ -62,12 +63,26 @@ const MainPage = () => {
         }
     }
 
+    //To begin the next round we want to move opt2 country to opt1 and grab a new country for opt2
+    const nextRound = () => {
+
+        const newQuestionPool = [...countriesQuestionPool]
+        const newOption2Country = getRandomCountryAndRemoveFromCountries(newQuestionPool)
+
+        setOption1Country(option2Country)
+        setOption2Country(newOption2Country)
+        setRevealCountry2Population(false)
+
+    }
+
 
     return (
         <>
             <h1>Time to play higher or lower!</h1>
+            <h2>Your score: {userScore}</h2>
 
             <button onClick={startGame}>Start Game!</button>
+            <button onClick={nextRound}>Next Round!</button>
 
             { option1Country? <CountryOption country={option1Country} showPopulation={true}/>: null} 
             { option2Country? <CountryOption country={option2Country} showPopulation={revealOption2CountryPopulation} guess={guessHigherOrLower} />: null}
