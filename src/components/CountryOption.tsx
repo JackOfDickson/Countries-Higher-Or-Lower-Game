@@ -1,8 +1,7 @@
+import Country from "../shared/types/country"
+
 type CountryOptionProps = {
-    country: {
-        name: {common: string},
-        population: number
-    },
+    country: Country,
     showPopulation : boolean,
     guess?: Function
 }

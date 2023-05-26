@@ -1,16 +1,17 @@
 import { useState, useEffect } from "react"
 import CountryOption from "../components/CountryOption"
+import Country from "../shared/types/country"
 
-type Country = {
-    name: {common: string},
-    population: number,
-}
+// type Country = {
+//     name: {common: string},
+//     population: number,
+// }
 
 const MainPage = () => {
 
     
     const [countries, setCountries] = useState([])
-    const [countriesQuestionPool, setCountriesQuestionPool] = useState([])
+    const [countriesQuestionPool, setCountriesQuestionPool] = useState<Array<Country>>([])
     const [option1Country, setOption1Country] = useState<Country | null>(null)
     const [option2Country, setOption2Country] = useState<Country | null>(null)
     const [revealOption2CountryPopulation, setRevealCountry2Population] = useState(false)
