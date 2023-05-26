@@ -2,10 +2,6 @@ import { useState, useEffect } from "react"
 import CountryOption from "../components/CountryOption"
 import Country from "../shared/types/country"
 
-// type Country = {
-//     name: {common: string},
-//     population: number,
-// }
 
 const MainPage = () => {
 
