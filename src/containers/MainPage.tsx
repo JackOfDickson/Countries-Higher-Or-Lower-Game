@@ -13,6 +13,7 @@ const MainPage = () => {
     const [revealOption2CountryPopulation, setRevealCountry2Population] = useState<boolean>(false)
     const [userScore, setUserScore] = useState<number>(0)
     const [gameStart, setGameStart] = useState<boolean>(false)
+    const [gameFail, setGameFail] = useState<boolean>(false)
 
 
     useEffect(() => {
@@ -32,6 +33,7 @@ const MainPage = () => {
         const generatedCountry1 = getRandomCountryAndRemoveFromCountries(copyOfCountries)
         const generatedCountry2 = getRandomCountryAndRemoveFromCountries(copyOfCountries)
 
+        setGameStart(true)
         setOption1Country(generatedCountry1)
         setOption2Country(generatedCountry2)
         setCountriesQuestionPool(copyOfCountries)
@@ -53,13 +55,16 @@ const MainPage = () => {
         setRevealCountry2Population(true)
         console.log("Option was", option)
         //catching the case where the option countries are undefined, but this SHOULD never happen
-        if (option2Country?.population == undefined || option1Country?.population == undefined){
+        if (option2Country?.population === undefined || option1Country?.population === undefined){
             return
         }
         if ( (option2Country.population > option1Country.population && option === "higher") || (option2Country.population < option1Country.population && option === "lower") ) {
             let newScore = userScore + 1
             setUserScore(newScore)
             console.log("Correct!")
+        } else {
+            console.log("WRONG!")
+            setGameFail(true)
         }
     }
 
@@ -81,8 +86,8 @@ const MainPage = () => {
             <h1>Time to play higher or lower!</h1>
             <h2>Your score: {userScore}</h2>
 
-            <button onClick={startGame}>Start Game!</button>
-            <button onClick={nextRound}>Next Round!</button>
+            { !gameStart ? <button onClick={startGame}>Start Game!</button> : null }
+            { gameStart && !gameFail ? <button onClick={nextRound}>Next Round!</button> : null}
 
             { option1Country? <CountryOption country={option1Country} showPopulation={true}/>: null} 
             { option2Country? <CountryOption country={option2Country} showPopulation={revealOption2CountryPopulation} guess={guessHigherOrLower} />: null}
