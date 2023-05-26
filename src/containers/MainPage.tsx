@@ -1,14 +1,18 @@
 import { useState, useEffect } from "react"
 import CountryOption from "../components/CountryOption"
 
+type Country = {
+    name: {common: string},
+    population: number,
+}
 
 const MainPage = () => {
 
     
     const [countries, setCountries] = useState([])
     const [countriesQuestionPool, setCountriesQuestionPool] = useState([])
-    const [option1Country, setOption1Country] = useState(null)
-    const [option2Country, setOption2Country] = useState(null)
+    const [option1Country, setOption1Country] = useState<Country | null>(null)
+    const [option2Country, setOption2Country] = useState<Country | null>(null)
     const [revealOption2CountryPopulation, setRevealCountry2Population] = useState(false)
     const [userScore, setUserScore] = useState(0)
 
@@ -38,7 +42,7 @@ const MainPage = () => {
     }
 
     //function that returns a random country from the array and removes it from the array
-    const getRandomCountryAndRemoveFromCountries = (countries) => {
+    const getRandomCountryAndRemoveFromCountries = (countries: Array<Country>) => {
         const indexSelector = Math.floor(Math.random() * countries.length)
         //splice will return an ARRAY of removed items hence why we have to access the index to get the one country we want
         const selectedCountry = countries.splice(indexSelector, 1)[0]
@@ -47,14 +51,22 @@ const MainPage = () => {
 
 
     //function that takes in a string "higher" or "lower" then compares it to the other country to see if it's higher or lower
-    const guessHigherOrLower = (option) => {
+    const guessHigherOrLower = (option : string) => {
         setRevealCountry2Population(true)
         console.log("Option was", option)
-        if ( (option2Country.population > option1Country.population && option === "higher") || (option2Country.population < option1Country.population && option === "lower") ) {
+        if (option2Country?.population == undefined || option1Country?.population == undefined){
+            return
+        }
+        if ( (option2Country?.population > option1Country?.population && option === "higher") || (option2Country.population < option1Country.population && option === "lower") ) {
             let newScore = userScore + 1
             setUserScore(newScore)
             console.log("Correct!")
         }
+    }
+
+    type CountryOptionProps = {
+        country : object,
+        showPopulation : boolean
     }
 
 
