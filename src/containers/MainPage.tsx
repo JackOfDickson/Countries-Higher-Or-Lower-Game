@@ -51,10 +51,11 @@ const MainPage = () => {
     const guessHigherOrLower = (option : string) => {
         setRevealCountry2Population(true)
         console.log("Option was", option)
+        //catching the case where the option countries are undefined, but this SHOULD never happen
         if (option2Country?.population == undefined || option1Country?.population == undefined){
             return
         }
-        if ( (option2Country?.population > option1Country?.population && option === "higher") || (option2Country.population < option1Country.population && option === "lower") ) {
+        if ( (option2Country.population > option1Country.population && option === "higher") || (option2Country.population < option1Country.population && option === "lower") ) {
             let newScore = userScore + 1
             setUserScore(newScore)
             console.log("Correct!")
