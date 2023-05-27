@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react"
 import CountryCard from "../components/CountryCard"
 import Country from "../shared/types/country"
+import styled from "styled-components"
 
 
 const MainPage = () => {
@@ -91,6 +92,12 @@ const MainPage = () => {
         return gameHistoryCards
     }
 
+    const CountryCardDiv = styled.div`
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    `
+
 
     return (
         <>
@@ -98,11 +105,12 @@ const MainPage = () => {
             <h2>Your score: {userScore}</h2>
 
             { !gameStart ? <button onClick={startGame}>Start Game!</button> : null }
-            { gameStart && !gameFail ? <button onClick={nextRound}>Next Round!</button> : null}
-
-            { option2Country? <CountryCard country={option2Country} showPopulation={revealOption2CountryPopulation} guess={guessHigherOrLower} />: null}
-            { option1Country? <CountryCard country={option1Country} showPopulation={true}/>: null} 
-            { countriesInGameHistory? gameHistory(): null}
+            { gameStart && !gameFail && revealOption2CountryPopulation ? <button onClick={nextRound}>Next Round!</button> : null}
+            <CountryCardDiv>
+                { option2Country? <CountryCard country={option2Country} showPopulation={revealOption2CountryPopulation} guess={guessHigherOrLower} />: null}
+                { option1Country? <CountryCard country={option1Country} showPopulation={true}/>: null} 
+                { countriesInGameHistory? gameHistory(): null}
+            </CountryCardDiv>
         </>
     )
 

@@ -17,17 +17,17 @@ const CountryOption = ({country, showPopulation, guess} : CountryCardProps) => {
     }
     
     return (
-        <>
+        <div>
             <p>{country?.name.common}</p>
 
             {showPopulation? 
-            <p> {country?.population} </p> 
+            <p> {country?.population.toLocaleString()} </p> 
             : //or 
             <div>
                 <button onClick={handleClickHigher}> Higher </button>
                 <button onClick={handleClickLower}> Lower </button>
             </div>}
-        </>
+        </div>
 
     )
 
