@@ -1,12 +1,12 @@
 import Country from "../shared/types/country"
 
-type CountryOptionProps = {
+type CountryCardProps = {
     country: Country,
     showPopulation : boolean,
     guess?: Function
 }
 
-const CountryOption = ({country, showPopulation, guess} : CountryOptionProps) => {
+const CountryOption = ({country, showPopulation, guess} : CountryCardProps) => {
 
     let handleClickHigher
     let handleClickLower
