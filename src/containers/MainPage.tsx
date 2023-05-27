@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react"
-import CountryOption from "../components/CountryOption"
+import CountryCard from "../components/CountryCard"
 import Country from "../shared/types/country"
 
 
@@ -8,6 +8,7 @@ const MainPage = () => {
     
     const [countries, setCountries] = useState<Array<Country>>([])
     const [countriesQuestionPool, setCountriesQuestionPool] = useState<Array<Country>>([])
+    const [countriesInGameHistory, setCountriesInGameHistory] = useState<Array<Country>>([])
     const [option1Country, setOption1Country] = useState<Country | null>(null)
     const [option2Country, setOption2Country] = useState<Country | null>(null)
     const [revealOption2CountryPopulation, setRevealCountry2Population] = useState<boolean>(false)
@@ -70,14 +71,24 @@ const MainPage = () => {
 
     //To begin the next round we want to move opt2 country to opt1 and grab a new country for opt2
     const nextRound = () => {
-
+        const newCountriesInGameHistory = [...countriesInGameHistory]
+        //check if option1Country is not null then at the country to the beginning of the array of the history
+        option1Country && newCountriesInGameHistory.unshift(option1Country)
         const newQuestionPool = [...countriesQuestionPool]
         const newOption2Country = getRandomCountryAndRemoveFromCountries(newQuestionPool)
 
+        setCountriesInGameHistory(newCountriesInGameHistory)
         setOption1Country(option2Country)
         setOption2Country(newOption2Country)
         setRevealCountry2Population(false)
 
+    }
+
+    const gameHistory = () => {
+        const gameHistoryCards = countriesInGameHistory.map( country => {
+            return <CountryCard country={country} showPopulation={true}/>
+        })
+        return gameHistoryCards
     }
 
 
@@ -89,8 +100,9 @@ const MainPage = () => {
             { !gameStart ? <button onClick={startGame}>Start Game!</button> : null }
             { gameStart && !gameFail ? <button onClick={nextRound}>Next Round!</button> : null}
 
-            { option1Country? <CountryOption country={option1Country} showPopulation={true}/>: null} 
-            { option2Country? <CountryOption country={option2Country} showPopulation={revealOption2CountryPopulation} guess={guessHigherOrLower} />: null}
+            { option2Country? <CountryCard country={option2Country} showPopulation={revealOption2CountryPopulation} guess={guessHigherOrLower} />: null}
+            { option1Country? <CountryCard country={option1Country} showPopulation={true}/>: null} 
+            { countriesInGameHistory? gameHistory(): null}
         </>
     )
 
