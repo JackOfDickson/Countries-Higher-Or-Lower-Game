@@ -31,6 +31,7 @@ const CountryCardDiv= styled.div<{country: Country}>`
 
 const HigherLowerButton = styled.button<{higher: boolean}>`
     /* font-family: 'Courier New', Courier, monospace; */
+    border-width: 1px ;
     border-radius: 30px;
     border-style: solid;
     border-color: black;
