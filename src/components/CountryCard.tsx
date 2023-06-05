@@ -29,13 +29,13 @@ const CountryCardDiv= styled.div<{country: Country}>`
     }
     `
 
-const HigherLowerButton = styled.button<{higher: boolean}>`
+const HigherLowerButton = styled.button<{isHigherStyle: boolean}>`
     /* font-family: 'Courier New', Courier, monospace; */
     border-width: 1px ;
     border-radius: 30px;
     border-style: solid;
     border-color: black;
-    background-color:${props => props.higher ? `#3d3dfb`: `#ff3333`};
+    background-color:${props => props.isHigherStyle ? `#3d3dfb`: `#ff3333`};
     `
 
 const CountryOption = ({country, showPopulation, guess} : CountryCardProps) => {
@@ -57,8 +57,8 @@ const CountryOption = ({country, showPopulation, guess} : CountryCardProps) => {
             <p> {country?.population.toLocaleString()} </p>
             : //or 
             <div>
-                <HigherLowerButton higher={true} onClick={handleClickHigher}> Higher </HigherLowerButton>
-                <HigherLowerButton higher={false} onClick={handleClickLower}> Lower </HigherLowerButton>
+                <HigherLowerButton isHigherStyle={true} onClick={handleClickHigher}> Higher </HigherLowerButton>
+                <HigherLowerButton isHigherStyle={false} onClick={handleClickLower}> Lower </HigherLowerButton>
             </div>}
         </CountryCardDiv>
 
