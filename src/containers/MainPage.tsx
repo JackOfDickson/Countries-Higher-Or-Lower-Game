@@ -3,6 +3,12 @@ import CountryCard from "../components/CountryCard"
 import Country from "../shared/types/country"
 import styled from "styled-components"
 
+const CountryCardDiv = styled.div`
+display: flex;
+justify-content: space-around;
+flex-wrap: wrap;
+`
+
 
 const MainPage = () => {
 
@@ -87,16 +93,10 @@ const MainPage = () => {
 
     const gameHistory = () => {
         const gameHistoryCards = countriesInGameHistory.map( country => {
-            return <CountryCard country={country} showPopulation={true}/>
+            return <CountryCard country={country} showPopulation={true} key={country.cca3}/>
         })
         return gameHistoryCards
     }
-
-    const CountryCardDiv = styled.div`
-    display: flex;
-    justify-content: space-around;
-    flex-wrap: wrap;
-    `
 
 
     return (
